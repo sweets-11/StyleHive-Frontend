@@ -8,7 +8,7 @@ import Payment from "./Payment";
 import Shipping from "./Shipping";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe("pk_test_51NRnhnSGlISiJMZa2qLmAMAlbbo8qTKiJ8fdLVnHo7UTYEKN3aivTDW5rFyNYUnFPNUPEUNOIk9rvRBihvZuQhWS002QptVhPP");
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -55,6 +55,7 @@ const Checkout = () => {
       sessionId: session.id,
     });
   }
+  
 
   return (
     <Box width="80%" m="100px auto">
@@ -115,7 +116,6 @@ const Checkout = () => {
                       borderRadius: 0,
                       padding: "15px 40px",
                     }}
-                    onClick={() => setActiveStep(activeStep - 1)}
                   >
                     Back
                   </Button>
@@ -186,32 +186,32 @@ const checkoutSchema = [
       isSameAddress: yup.boolean(),
       firstName: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       lastName: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       country: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       street1: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       street2: yup.string(),
       city: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       state: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
       zipCode: yup.string().when("isSameAddress", {
         is: false,
-        then:() => yup.string().required("required"),
+        then: () => yup.string().required("required"),
       }),
     }),
   }),
