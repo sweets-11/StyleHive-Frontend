@@ -24,7 +24,7 @@ const Footer = () => {
             mb="30px"
             color={shades.secondary[500]}
           >
-            ECOMMER
+                      StyleHive
           </Typography>
           <div>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
