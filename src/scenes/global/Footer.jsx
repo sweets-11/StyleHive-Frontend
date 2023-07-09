@@ -2,7 +2,7 @@ import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
 import { shades } from "../../theme";
 
-function Footer() {
+const Footer = () => {
   const {
     palette: { neutral },
   } = useTheme();
@@ -69,6 +69,6 @@ function Footer() {
       </Box>
     </Box>
   );
-}
+};
 
 export default Footer;
