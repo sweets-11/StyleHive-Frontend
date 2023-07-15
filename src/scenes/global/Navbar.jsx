@@ -1,20 +1,58 @@
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton, Typography } from "@mui/material";
+import {
+  Badge,
+  Box,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Avatar,
+} from "@mui/material";
+import { auth } from "../../config/firebase";
+import { logout } from "../../state/index";
+import { signOut } from "firebase/auth";
+
 import {
   PersonOutline,
   ShoppingBagOutlined,
   MenuOutlined,
   SearchOutlined,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const cart = useSelector((state) => state.cart.cart);
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  //logout
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      dispatch(logout());
+      navigate("/");
+    });
+  };
   return (
     <Box
       display="flex"
@@ -41,7 +79,7 @@ function Navbar() {
           color={shades.secondary[500]}
         >
           <Typography variant="h3" fontWeight={"bold"}>
-          StyleHive
+            StyleHive
           </Typography>
         </Box>
         <Box
@@ -77,11 +115,49 @@ function Navbar() {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }}>
+          {/* <IconButton sx={{ color: "black" }}>
             <MenuOutlined />
-          </IconButton>
+          </IconButton> */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>    
+              <Avatar aria-label="recipe">
+                <img
+                  style={{ width: "100%" }}
+                  src={localStorage.getItem("pic")}
+                  alt=""
+                />
+              </Avatar>
+        
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+          
+              <MenuItem onClick={signUserOut}>
+                <Typography textAlign="center" color={"black"}>
+                  Logout
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
         </Box>
       </Box>
+     
     </Box>
   );
 }

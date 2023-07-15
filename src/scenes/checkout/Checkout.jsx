@@ -7,6 +7,8 @@ import { shades } from "../../theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
 import { loadStripe } from "@stripe/stripe-js";
+import Footer from "../global/Footer";
+import Navbar from "../global/Navbar";
 
 const stripePromise = loadStripe("pk_test_51NRnhnSGlISiJMZa2qLmAMAlbbo8qTKiJ8fdLVnHo7UTYEKN3aivTDW5rFyNYUnFPNUPEUNOIk9rvRBihvZuQhWS002QptVhPP");
 
@@ -58,6 +60,8 @@ const Checkout = () => {
   
 
   return (
+    <>
+    <Navbar />
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
         <Step>
@@ -141,6 +145,8 @@ const Checkout = () => {
         </Formik>
       </Box>
     </Box>
+    <Footer />
+    </>
   );
 };
 

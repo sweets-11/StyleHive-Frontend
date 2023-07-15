@@ -4,12 +4,30 @@ const initialState = {
   isCartOpen: false,
   cart: [],
   items: [],
+  name: localStorage.getItem("name"),
+  email: localStorage.getItem("email"),
+  pic: localStorage.getItem("pic"),
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    login: (state, action) => {
+      const { name, email } = action.payload;
+      state.name = localStorage.setItem("name", name);
+      state.email = localStorage.setItem("email", email);
+    },
+    logout: (state) => {
+      state.name = localStorage.removeItem("name");
+      state.email = localStorage.removeItem("email");
+      localStorage.clear();
+    },
+    profile: (state, action) => {
+      const { pic } = action.payload;
+      state.pic = localStorage.setItem('pic', pic);
+    },
+
     setItems: (state, action) => {
       state.items = action.payload;
     },
@@ -49,9 +67,12 @@ export const cartSlice = createSlice({
 export const {
   setItems,
   addToCart,
+  login,
+  logout,
   removeFromCart,
   increaseCount,
   decreaseCount,
+  profile,
   setIsCartOpen,
 } = cartSlice.actions;
 
