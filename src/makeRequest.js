@@ -6,3 +6,4 @@ export const makeRequest = axios.create({
     Authorization: "bearer " + process.env.REACT_APP_API_TOKEN,
   },
 });
+

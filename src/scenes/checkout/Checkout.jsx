@@ -10,7 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Footer from "../global/Footer";
 import Navbar from "../global/Navbar";
 
-const stripePromise = loadStripe("pk_test_51NRnhnSGlISiJMZa2qLmAMAlbbo8qTKiJ8fdLVnHo7UTYEKN3aivTDW5rFyNYUnFPNUPEUNOIk9rvRBihvZuQhWS002QptVhPP");
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -47,7 +47,7 @@ const Checkout = () => {
       })),
     };
 
-    const response = await fetch("http://localhost:1337/api/orders", {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
